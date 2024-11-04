@@ -318,16 +318,16 @@ def track_activity_time(activity_id, user_id, hours_spent, description=None):
         conn.close()
 def create_activity(user_id, activity, description, priority, category, estimated_hours, comments):
     """
-    Cria uma nova atividade no sistema
+    Creates a new activity in the system
     
-    Parâmetros:
-    - user_id: ID do usuário responsável
-    - activity: Título da atividade
-    - description: Descrição da atividade
-    - priority: Prioridade (Baixa, Média, Alta, Urgente)
-    - category: Categoria da atividade
-    - estimated_hours: Horas estimadas
-    - comments: Comentários
+    Parameters:
+    - user_id: ID of the responsible user
+    - activity: Activity title
+    - description: Activity description 
+    - priority: Priority (Baixa, Média, Alta, Urgente)
+    - category: Activity category
+    - estimated_hours: Estimated hours
+    - comments: Comments
     """
     if not activity or not description:
         st.error("Título e descrição são obrigatórios")
@@ -419,6 +419,7 @@ def show_admin_new_activity():
         with col2:
             category = st.selectbox("Categoria", ["Desenvolvimento", "Manutenção", "Suporte", "Reunião", "Outro"])
             estimated_hours = st.number_input("Horas Estimadas", min_value=0.5, value=1.0)
+            start_date = st.date_input("Data de Início")
         
         comments = st.text_area("Comentários")
         
@@ -433,13 +434,13 @@ def show_admin_new_activity():
                 return
                 
             activity_id = create_activity(
-                user_id,
-                activity,
-                description,
-                priority,
-                category,
-                estimated_hours,
-                comments
+                user_id=user_id,
+                activity=activity,
+                description=description,
+                priority=priority,
+                category=category,
+                estimated_hours=estimated_hours,
+                comments=comments
             )
             
             if activity_id:
@@ -669,53 +670,7 @@ def show_all_activities():
                     delete_activity(activity['id'])
                     st.experimental_rerun()
 
-# Função melhorada para mostrar formulário de nova atividade (admin)
-def show_admin_new_activity():
-    st.subheader("Nova Atividade")
-    
-    with st.form("new_activity_admin_form"):
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            responsible = st.selectbox("Responsável*", get_all_users_names())
-            activity = st.text_input("Título da Atividade*")
-            description = st.text_area("Descrição*")
-            priority = st.selectbox("Prioridade", ["Baixa", "Média", "Alta", "Urgente"])
-        
-        with col2:
-            category = st.selectbox("Categoria", ["Desenvolvimento", "Manutenção", "Suporte", "Reunião", "Outro"])
-            estimated_hours = st.number_input("Horas Estimadas", min_value=0.5, value=1.0)
-            start_date = st.date_input("Data de Início")
-            status = st.selectbox("Status", ["pendente", "em_andamento", "concluida"])
-        
-        comments = st.text_area("Comentários")
-        
-        if st.form_submit_button("Criar Atividade"):
-            if not activity or not description:
-                st.error("Por favor, preencha todos os campos obrigatórios")
-                return
-                
-            user_id = get_user_id_by_name(responsible)
-            if not user_id:
-                st.error("Usuário responsável não encontrado")
-                return
-                
-            activity_id = create_activity(
-                user_id=user_id,
-                activity=activity,
-                description=description,
-                priority=priority,
-                category=category,
-                estimated_hours=estimated_hours,
-                comments=comments,
-                start_date=start_date,
-                status=status
-            )
-            
-            if activity_id:
-                st.success("Atividade criada com sucesso!")
-                time.sleep(1)  # Pequena pausa para mostrar a mensagem
-                st.experimental_rerun()
+
 
 def show_activities_metrics():
     st.subheader("📊 Métricas de Atividades")
