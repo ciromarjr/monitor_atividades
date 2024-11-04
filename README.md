@@ -143,7 +143,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 📫 Contato
 
-Seu Nome - [@seutwitter](https://twitter.com/seutwitter) - email@exemplo.com
+Ciromar Araujo - [@seutwitter](https://twitter.com/seutwitter) - email@exemplo.com
 
 Link do Projeto: [https://github.com/seu-usuario/sistema-monitoramento](https://github.com/seu-usuario/sistema-monitoramento)
 
