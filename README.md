@@ -155,4 +155,4 @@ Link do Projeto: [https://github.com/seu-usuario/sistema-monitoramento](https://
 - [SQLite](https://www.sqlite.org/)
 
 ---
-⭐️ From [seu-usuario]([https://github.com/seu-usuario](https://github.com/ciromarjr))
+⭐️ From [seu-usuario]([[[https://github.com/ciromarjr]
